@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug local file",
+            "runtimeArgs": [
+                "-r",
+                "ts-node/register"
+            ],
+            "args": [
+                "${relativeFile}"
+            ],
+            "env": {
+                "AWS_REGION": "eu-west-2",
+                "TABLE_NAME": "SpaceTable-064b471303dc"
+            }
+        }
+    ]
+}

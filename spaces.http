@@ -1,0 +1,15 @@
+
+GET https://mcf8d4avta.execute-api.eu-west-2.amazonaws.com/prod/spaces
+###
+
+
+POST https://mcf8d4avta.execute-api.eu-west-2.amazonaws.com/prod/spaces
+content-Type: application/json
+ 
+{
+    "location": "Moscow"
+}
+###
+
+GET https://mcf8d4avta.execute-api.eu-west-2.amazonaws.com/prod/spaces?id=343345
+###
