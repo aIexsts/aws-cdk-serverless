@@ -2,14 +2,24 @@
 GET https://mcf8d4avta.execute-api.eu-west-2.amazonaws.com/prod/spaces
 ###
 
-
 POST https://mcf8d4avta.execute-api.eu-west-2.amazonaws.com/prod/spaces
 content-Type: application/json
  
-{
-    "location": "Moscow"
-}
+ {
+    "location": "Tartu"
+ }
 ###
 
-GET https://mcf8d4avta.execute-api.eu-west-2.amazonaws.com/prod/spaces?id=343345
+GET https://mcf8d4avta.execute-api.eu-west-2.amazonaws.com/prod/spaces?id=c11cf79e-a2db-4d3a-9dcf-9ead920c427d
+###
+
+PUT https://mcf8d4avta.execute-api.eu-west-2.amazonaws.com/prod/spaces?id=c11cf79e-a2db-4d3a-9dcf-9ead920c427d
+content-type: application/json
+
+ {
+    "location": "Tartu2"
+ }
+###
+
+DELETE https://mcf8d4avta.execute-api.eu-west-2.amazonaws.com/prod/spaces?id=c11cf79e-a2db-4d3a-9dcf-9ead920c427d
 ###
