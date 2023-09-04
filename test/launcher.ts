@@ -10,11 +10,8 @@ handler({
     // },
     body: JSON.stringify({
         name: 'kek',
-        kok: 'check',
-        dom: 'sek',
-        test: 123,
         location: 'Narva topchik'
     })
 } as any, {} as any).then(result =>{
     console.log(result)
-});;
+});

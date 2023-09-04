@@ -1,5 +1,5 @@
-import { JsonError } from "./Validator";
 import { randomUUID } from "crypto";
+import { JsonError } from "../shared/Validator";
 
 export function createRandomId(){
     return randomUUID();
