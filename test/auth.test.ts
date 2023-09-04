@@ -7,7 +7,7 @@ async function testAuth() {
         'alextest',
         'Parolik123)'
     )
-    console.log(loginResult);
+    console.log(loginResult.getSignInUserSession().getIdToken().getJwtToken());
 }
 
 testAuth();
