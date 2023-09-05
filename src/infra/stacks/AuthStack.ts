@@ -1,6 +1,6 @@
 import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib'
 import { CfnIdentityPool, CfnIdentityPoolRoleAttachment, CfnUserPoolGroup, UserPool, UserPoolClient } from 'aws-cdk-lib/aws-cognito';
-import { FederatedPrincipal, Role } from 'aws-cdk-lib/aws-iam';
+import { Effect, FederatedPrincipal, PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
 export class AuthStack extends Stack {
@@ -17,10 +17,13 @@ export class AuthStack extends Stack {
 
         this.createUserPool();
         this.createUserPoolClient();
-        this.createAdminsGroup();
+        
         this.createIdentityPool();
         this.createRoles();
-        this.attachRoles();
+        this.attachPoliciesToRoles();
+        this.attachRolesToIdentityPool();
+
+        this.createAdminsGroup();
     }
 
     private createUserPool() {
@@ -54,9 +57,12 @@ export class AuthStack extends Stack {
     private createAdminsGroup() {
         new CfnUserPoolGroup(this, 'SpaceAdmins', {
             userPoolId: this.userPool.userPoolId,
-            groupName: 'admins'
+            groupName: 'admins',
+            roleArn: this.adminRole.roleArn
         })
     }
+
+    // Identity Pool
 
     private createIdentityPool() {
         this.identityPool = new CfnIdentityPool(this, 'SpaceIdentityPool', {
@@ -69,6 +75,16 @@ export class AuthStack extends Stack {
         new CfnOutput(this, 'SpaceIdentityPoolId', {
             value: this.identityPool.ref
         })
+    }
+
+    private attachPoliciesToRoles(){
+        this.adminRole.addToPolicy(new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: [
+                's3:ListAllMyBuckets'
+            ],
+            resources: ['*']
+        }))
     }
 
     private createRoles() {
@@ -110,7 +126,7 @@ export class AuthStack extends Stack {
         });
     }
 
-    private attachRoles() {
+    private attachRolesToIdentityPool() {
         new CfnIdentityPoolRoleAttachment(this, 'RolesAttachment', {
             identityPoolId: this.identityPool.ref,
             roles: {
@@ -118,7 +134,7 @@ export class AuthStack extends Stack {
                 'unauthenticated': this.unAuthenticatedRole.roleArn
             },
             roleMappings: {
-                adminsMapping: {
+                mapping: {
                     type: 'Token',
                     ambiguousRoleResolution: 'AuthenticatedRole',
                     identityProvider: `${this.userPool.userPoolProviderName}:${this.userPoolClient.userPoolClientId}`
