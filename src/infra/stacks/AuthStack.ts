@@ -7,6 +7,7 @@ export class AuthStack extends Stack {
 
     public userPool: UserPool;
     private userPoolClient: UserPoolClient;
+
     private identityPool: CfnIdentityPool;
     private authenticatedRole: Role;
     private unAuthenticatedRole: Role;
@@ -17,13 +18,12 @@ export class AuthStack extends Stack {
 
         this.createUserPool();
         this.createUserPoolClient();
-        
-        this.createIdentityPool();
-        this.createRoles();
-        this.attachPoliciesToRoles();
-        this.attachRolesToIdentityPool();
 
-        this.createAdminsGroup();
+        this.createIdentityPool();
+        this.createIdentityPoolRoles();
+        this.attachDefaultRolesToIdentityPool();
+
+        this.createUserPoolAdminsGroup();
     }
 
     private createUserPool() {
@@ -34,7 +34,6 @@ export class AuthStack extends Stack {
                 email: true
             }
         });
-
         new CfnOutput(this, 'SpaceUserPoolId', {
             value: this.userPool.userPoolId
         })
@@ -54,7 +53,7 @@ export class AuthStack extends Stack {
         })
     }
 
-    private createAdminsGroup() {
+    private createUserPoolAdminsGroup() {
         new CfnUserPoolGroup(this, 'SpaceAdmins', {
             userPoolId: this.userPool.userPoolId,
             groupName: 'admins',
@@ -62,7 +61,7 @@ export class AuthStack extends Stack {
         })
     }
 
-    // Identity Pool
+    ////////////////////////////////////// Identity Pool ///////////////////////////////////////
 
     private createIdentityPool() {
         this.identityPool = new CfnIdentityPool(this, 'SpaceIdentityPool', {
@@ -77,17 +76,7 @@ export class AuthStack extends Stack {
         })
     }
 
-    private attachPoliciesToRoles(){
-        this.adminRole.addToPolicy(new PolicyStatement({
-            effect: Effect.ALLOW,
-            actions: [
-                's3:ListAllMyBuckets'
-            ],
-            resources: ['*']
-        }))
-    }
-
-    private createRoles() {
+    private createIdentityPoolRoles() {
         this.authenticatedRole = new Role(this, 'CognitoDefaultAuthenticatedRole', {
             assumedBy: new FederatedPrincipal('cognito-identity.amazonaws.com', {
                 StringEquals: {
@@ -100,6 +89,7 @@ export class AuthStack extends Stack {
                 'sts:AssumeRoleWithWebIdentity'
             )
         });
+
         this.unAuthenticatedRole = new Role(this, 'CognitoDefaultUnauthenticatedRole', {
             assumedBy: new FederatedPrincipal('cognito-identity.amazonaws.com', {
                 StringEquals: {
@@ -112,6 +102,7 @@ export class AuthStack extends Stack {
                 'sts:AssumeRoleWithWebIdentity'
             )
         });
+
         this.adminRole = new Role(this, 'CognitoAdminRole', {
             assumedBy: new FederatedPrincipal('cognito-identity.amazonaws.com', {
                 StringEquals: {
@@ -124,9 +115,16 @@ export class AuthStack extends Stack {
                 'sts:AssumeRoleWithWebIdentity'
             )
         });
+        this.adminRole.addToPolicy(new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: [
+                's3:ListAllMyBuckets'
+            ],
+            resources: ['*']
+        }))
     }
 
-    private attachRolesToIdentityPool() {
+    private attachDefaultRolesToIdentityPool() {
         new CfnIdentityPoolRoleAttachment(this, 'RolesAttachment', {
             identityPoolId: this.identityPool.ref,
             roles: {
