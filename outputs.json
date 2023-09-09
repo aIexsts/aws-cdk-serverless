@@ -1,23 +1,23 @@
 {
   "DataStack": {
-    "ExportsOutputFnGetAttSpaceFinderPhotosE708E252Arn354BE01C": "arn:aws:s3:::space-finder-photos-064b471303dc",
-    "ExportsOutputRefSpacesTable8A9973559FB4B87D": "SpaceTable-064b471303dc",
-    "SpaceFinderPhotosBucketName": "space-finder-photos-064b471303dc",
-    "ExportsOutputFnGetAttSpacesTable8A997355Arn242927FE": "arn:aws:dynamodb:eu-west-2:323430569969:table/SpaceTable-064b471303dc"
+    "ExportsOutputFnGetAttSpaceFinderPhotosE708E252Arn354BE01C": "arn:aws:s3:::space-finder-photos-02790cf27ebc",
+    "ExportsOutputRefSpacesTable8A9973559FB4B87D": "SpaceTable-02790cf27ebc",
+    "SpaceFinderPhotosBucketName": "space-finder-photos-02790cf27ebc",
+    "ExportsOutputFnGetAttSpacesTable8A997355Arn242927FE": "arn:aws:dynamodb:eu-west-2:323430569969:table/SpaceTable-02790cf27ebc"
   },
   "UiDeploymentStack": {
-    "SpaceFInderUrl": "d20bx4t2j6hcq5.cloudfront.net"
+    "SpaceFInderUrl": "d1yn4ty8s07drl.cloudfront.net"
   },
   "LambdaStack": {
-    "ExportsOutputFnGetAttHelloLambda3D9C82D6ArnAF912CE6": "arn:aws:lambda:eu-west-2:323430569969:function:LambdaStack-HelloLambda3D9C82D6-J530s6x9alUm"
+    "ExportsOutputFnGetAttHelloLambda3D9C82D6ArnAF912CE6": "arn:aws:lambda:eu-west-2:323430569969:function:LambdaStack-HelloLambda3D9C82D6-0kXHxGE2X5I2"
   },
   "AuthStack": {
-    "ExportsOutputFnGetAttSpaceUserPool6AB542DCArnC2E21F85": "arn:aws:cognito-idp:eu-west-2:323430569969:userpool/eu-west-2_CbVzHfrls",
-    "SpaceUserPoolId": "eu-west-2_CbVzHfrls",
-    "SpaceUserPoolClientId": "pqc1kaqsaeaqueea4vs3ncj88",
-    "SpaceIdentityPoolId": "eu-west-2:c2130df7-6b64-4f3e-a739-6731b5c570e8"
+    "ExportsOutputFnGetAttSpaceUserPool6AB542DCArnC2E21F85": "arn:aws:cognito-idp:eu-west-2:323430569969:userpool/eu-west-2_nT7thEOgH",
+    "SpaceUserPoolId": "eu-west-2_nT7thEOgH",
+    "SpaceUserPoolClientId": "7emd33h1ofvjucqemql7rdeht7",
+    "SpaceIdentityPoolId": "eu-west-2:417352ad-6ede-4762-abb8-b790a1f4298c"
   },
   "ApiStack": {
-    "SpacesApiEndpoint36C4F3B6": "https://mcf8d4avta.execute-api.eu-west-2.amazonaws.com/prod/"
+    "SpacesApiEndpoint36C4F3B6": "https://mxc5llw5n0.execute-api.eu-west-2.amazonaws.com/prod/"
   }
 }

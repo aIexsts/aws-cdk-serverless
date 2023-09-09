@@ -13,7 +13,8 @@ export async function postSpaces(event: APIGatewayProxyEvent, ddbClient: DynamoD
     const item: SpaceEntry = {
         id: randomId,
         location: body.location,
-        name: body.location
+        name: body.name,
+        photoUrl: body.photoUrl
     }
 
     validateAsSpaceEntry(item)
