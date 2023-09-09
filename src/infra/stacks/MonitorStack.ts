@@ -24,6 +24,7 @@ export class MonitorStack extends Stack {
             topicName: 'AlarmTopic'
         });
         alarmTopic.addSubscription(new LambdaSubscription(webHookLambda));
+        const topicAction = new SnsAction(alarmTopic);
 
         const spacesApi4xxAlarm = new Alarm(this, 'spacesApi4xxAlarm', {
             metric: new Metric({
@@ -41,7 +42,6 @@ export class MonitorStack extends Stack {
             alarmName: 'SpacesApi4xxAlarm'
         });
 
-        const topicAction = new SnsAction(alarmTopic);
         spacesApi4xxAlarm.addAlarmAction(topicAction);
         spacesApi4xxAlarm.addOkAction(topicAction);
     }
