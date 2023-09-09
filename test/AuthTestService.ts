@@ -4,14 +4,14 @@ import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 import { Amplify, Auth } from 'aws-amplify';
 
 const awsRegion = 'eu-west-2'
-const identityPoolId = 'eu-west-2:c2130df7-6b64-4f3e-a739-6731b5c570e8'
-const userPoolId = 'eu-west-2_CbVzHfrls'
+const identityPoolId = 'eu-west-2:417352ad-6ede-4762-abb8-b790a1f4298c'
+const userPoolId = 'eu-west-2_nT7thEOgH'
 
 Amplify.configure({
     Auth: {
         region: awsRegion,
-        userPoolId: 'eu-west-2_CbVzHfrls',
-        userPoolWebClientId: 'pqc1kaqsaeaqueea4vs3ncj88',
+        userPoolId: userPoolId,
+        userPoolWebClientId: '7emd33h1ofvjucqemql7rdeht7',
         authenticationFlowType: 'USER_PASSWORD_AUTH',
         identityPoolId: identityPoolId
     }
